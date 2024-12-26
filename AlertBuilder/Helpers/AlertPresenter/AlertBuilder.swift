@@ -7,63 +7,64 @@
 
 import UIKit
 
-final class AlertBuilder: AlertBuilderRepresentable {
+final class AlertBuilder: AlertBuilderProtocol {
     
     // MARK: - Properties
     
-    private var title: String?
-    private var message: String?
-    private var actions: [AlertAction] = []
-    private var preferredStyle: UIAlertController.Style = .alert
+    private var alertTitle: String?
+    private var alertMessage: String?
+    private var alertActions: [AlertAction] = []
+    private var alertStyle: UIAlertController.Style = .alert
     
     // MARK: - Initialization
     
     init() {}
     
-    // MARK: - Implementation
+    // MARK: - Configuration Methods
     
     @discardableResult
-    func setTitle(_ title: String) -> AlertBuilderRepresentable {
-        self.title = title
+    func withTitle(_ title: String) -> AlertBuilderProtocol {
+        self.alertTitle = title
         return self
     }
     
     @discardableResult
-    func setMessage(_ message: String) -> AlertBuilderRepresentable {
-        self.message = message
+    func withMessage(_ message: String) -> AlertBuilderProtocol {
+        self.alertMessage = message
         return self
     }
     
     @discardableResult
-    func addAction(_ action: AlertAction) -> AlertBuilderRepresentable {
-        actions.append(action)
+    func addAlertAction(_ action: AlertAction) -> AlertBuilderProtocol {
+        alertActions.append(action)
         return self
     }
     
     @discardableResult
-    func setPreferredStyle(_ style: UIAlertController.Style) -> AlertBuilderRepresentable {
-        preferredStyle = style
+    func withPreferredStyle(_ style: UIAlertController.Style) -> AlertBuilderProtocol {
+        alertStyle = style
         return self
     }
     
     // MARK: - Build Method
     
-    func build() -> UIAlertController {
+    func buildAlert() -> UIAlertController {
         let alertController = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: preferredStyle
+            title: alertTitle,
+            message: alertMessage,
+            preferredStyle: alertStyle
         )
         
-        actions.forEach { action in
-            let action = UIAlertAction(title: action.title,
-                                       style: action.style) { _ in
+        alertActions.forEach { action in
+            let uiAction = UIAlertAction(
+                title: action.title,
+                style: action.style) { _ in
                 action.handler?()
             }
-            alertController.addAction(action)
+            alertController.addAction(uiAction)
         }
         
-        if actions.isEmpty {
+        if alertActions.isEmpty {
             alertController.addAction(UIAlertAction(title: "OK", style: .default))
         }
         return alertController

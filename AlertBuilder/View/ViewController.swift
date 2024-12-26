@@ -23,16 +23,16 @@ final class ViewController: UIViewController {
         let doneAction = AlertAction(title: "Done")
         
         return AlertBuilder()
-            .setMessage(AlertMessages.internalAlert)
-            .addAction(doneAction)
-            .setPreferredStyle(.actionSheet)
-            .build()
+            .withMessage(AlertMessages.internalAlert)
+            .addAlertAction(doneAction)
+            .withPreferredStyle(.actionSheet)
+            .buildAlert()
     }()
     
     private lazy var presenterAlert: UIAlertController = {
         AlertBuilder()
-            .setMessage(AlertMessages.presenterAlert)
-            .build()
+            .withMessage(AlertMessages.presenterAlert)
+            .buildAlert()
     }()
     
     // MARK: - Alert Presentation
