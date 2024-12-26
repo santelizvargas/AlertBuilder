@@ -18,16 +18,16 @@ final class AlertPresenter {
     
     static func present(_ message: String) {
         let alert = AlertBuilder()
-            .setMessage(message)
-            .build()
+            .withMessage(message)
+            .buildAlert()
         presentFromTop(alert)
     }
     
     static func present(_ title: String, message: String) {
         let alert = AlertBuilder()
-            .setTitle(title)
-            .setMessage(message)
-            .build()
+            .withTitle(title)
+            .withMessage(message)
+            .buildAlert()
         presentFromTop(alert)
     }
     
