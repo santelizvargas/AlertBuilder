@@ -13,7 +13,7 @@ struct AlertAction {
     let handler: (() -> Void)?
     
     init(title: String,
-         style: UIAlertAction.Style,
+         style: UIAlertAction.Style = .default,
          handler: (() -> Void)? = nil) {
         self.title = title
         self.style = style
