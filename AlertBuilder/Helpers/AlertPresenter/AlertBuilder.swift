@@ -50,7 +50,6 @@ final class AlertBuilder: AlertBuilderRepresentable {
             }
             alertController.addAction(alertAction)
         }
-        
         return alertController
     }
 }
